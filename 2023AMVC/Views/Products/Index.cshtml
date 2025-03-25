@@ -1,0 +1,51 @@
+﻿@model IEnumerable<_2023AMVC.Areas.Identity.Data.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="container mx-auto px-6 py-8">
+    <h1 class="text-4xl font-extrabold text-center text-gray-800 mb-6">Product List</h1>
+
+    <div class="flex justify-end mb-6">
+        <a asp-action="Create" class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 font-semibold">
+            + Add New Product
+        </a>
+    </div>
+
+    <div class="overflow-hidden rounded-lg shadow-lg bg-gray-100 p-4">
+        <table class="w-full border-collapse bg-white rounded-lg shadow-md">
+            <thead>
+                <tr class="bg-gray-800 text-white">
+                    <th class="px-6 py-4 text-left font-semibold">Name</th>
+                    <th class="px-6 py-4 text-left font-semibold">Description</th>
+                    <th class="px-6 py-4 text-center font-semibold">Quantity</th>
+                    <th class="px-6 py-4 text-center font-semibold">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="border-b border-gray-300 hover:bg-gray-200 transition duration-200">
+                        <td class="px-6 py-4 text-gray-800 font-medium">@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td class="px-6 py-4 text-gray-700">@Html.DisplayFor(modelItem => item.Description)</td>
+                        <td class="px-6 py-4 text-center text-blue-600 font-semibold">@Html.DisplayFor(modelItem => item.Quantity)</td>
+                        <td class="px-6 py-4 text-center">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="bg-yellow-500 text-white px-4 py-1 rounded-md shadow-md hover:bg-yellow-600 transition duration-300">
+                                Edit
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="bg-green-500 text-white px-4 py-1 rounded-md shadow-md hover:bg-green-600 transition duration-300 mx-2">
+                                Details
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="bg-red-500 text-white px-4 py-1 rounded-md shadow-md hover:bg-red-600 transition duration-300">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

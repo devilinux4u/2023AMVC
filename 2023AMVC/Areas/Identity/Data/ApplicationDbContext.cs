@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using _2023AMVC.Areas.Identity.Data;
 
 namespace _2023AMVC.Data;
 
@@ -18,4 +19,6 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
     }
+
+public DbSet<_2023AMVC.Areas.Identity.Data.Product> Product { get; set; } = default!;
 }
