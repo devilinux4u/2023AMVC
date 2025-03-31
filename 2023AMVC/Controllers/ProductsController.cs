@@ -153,5 +153,12 @@ namespace _2023AMVC.Controllers
         {
             return _context.Product.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> GetAll()
+        {
+            var response = await _context.Product.ToListAsync();
+            return Json(response);
+        }
+
     }
 }
