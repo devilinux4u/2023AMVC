@@ -40,12 +40,58 @@
             </tbody>
         </table>
 
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
 
     </div>
 </div>
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
+
+<script>
+    var js = jQuery.noConflict(true);
+    js(document).ready(function () {
+        LoadListing();
+    });
+
+    function FunEdit(element) {
+        debugger;
+        var id = $(element).closest('tr').find('input[type=hidden]').val();
+        window.location.href = "/Products/Edit?id=" + id;
+    }
+
+    function FunRemove(element) {
+        var id = $(element).closest('tr').find('input[type=hidden]').val();
+        window.location.href = "/Products/delete?id=" + id;
+    }
+
+    function LoadListing() {
+        var productdata = [];
+        $.ajax({
+            type: "POST",
+            url: "/Products/GetAll",
+            async: false,
+            success: function (data) {
+                debugger;
+                $.each(data, function (key, value) {
+                    var editbtn = "<a onclick='FunEdit(this)' class='btn btn-primary'>Edit</a>";
+                    var removebtn = "<a onclick='FunRemove(this)' Class='btn btn-danger'>Remove</a>";
+                    var hdn = "<input type= 'hidden' value=" + value.id + " />";
+                    var action = editbtn + "|" + removebtn + hdn;
+                    productdata.push([value.id, value.name, value.description, value.quantity, action])
+
+                });
+            },
+            failure: function (err) {
+                debugger;
+            }
+
+        });
+        js('#tbllist').DataTable({
+            data: productdata
+        });
+    }
+
+</script>
